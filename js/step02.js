@@ -20,8 +20,8 @@ function success(pos) {
       Origin: "http://218.235.237.30",
     },
     body: JSON.stringify({
-      minwon_applied_pos_x: crd.longitude,
-      minwon_applied_pos_y: crd.latitude,
+      "minwon_applied_pos_x": crd.longitude,
+      "minwon_applied_pos_y": crd.latitude,
     }),
     mode: "cors",
   })

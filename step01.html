@@ -1,18 +1,10 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content=" ">
-		<meta name="generator" content=" ">
 		<title>강릉시 퀵보드 민원신고시스템</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="./assets/css/layout.css" rel="stylesheet">
-		<script src="/apply/plugin/jsQR.js"></script>  
-		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<script src="./js/plugin/jsQR.js"></script>
+		<script src="./js/step01.js"></script>
 		<script type="text/javaScript" language="javascript">
 			function goMinwon() {
 				document.applyForm.action = "<c:url value='/context/apply/step2.do'/>"; 
@@ -122,7 +114,6 @@
 						                $("#kickId").val(kickboardid);
 						                
 						                var targetValue = "www.daum.net"; // 비교하려는 값
-
 						                $companyList.find('option').each(function() {
 						                    var option = $(this);
 						                    if (option.attr('data-value') === targetValue) {
@@ -158,50 +149,6 @@
 	        $("#minwon_cmpy_nm").val(selectedText);	 
 	    }
 		</script> 
-	</head>
-	<body>
-		<div class="main_wrapper">
-			<header class="gnb_box ">
-				<div class="offcanvas offcanvas-start all_menu" id="all_menu" data-bs-scroll="true" data-bs-backdrop="true" >
-					<button class="all_close" type="button" data-bs-dismiss="offcanvas" aria-label="Close">
-						<span></span>						
-					</button>
-					<div class="all_menu_top">
-						<a href="index.html"><img src="./images/logo.png" class="img-fluid" /></a>					
-					</div><!--all_menu_top-->
-					
-					<div CLASS="menu_box">
-						<ul>
-							<li class="on"><a href="step01.html"><img src="" />신고접수</a></li>
-							<li><a href="receitp.html"><img src="" />결과조회</a></li>
-							<li><a href="notice.html"><img src="" />공지사항</a></li>
-						</ul>
-						
-					</div>
-				</div><!--all_menu-->
-				<div class="container-lg navbar">
-				  <a href="index.html" class="top_logo">
-					<img src="./images/logo.png" class="img-fluid" />
-				  </a>
-				  <button class="all_menu_btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#all_menu" aria-controls="all_menu" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="all_bar"></span>
-					<span class="all_bar"></span>
-					<span class="all_bar"></span>
-				  </button>
-				</div>
-			</header>
-
-			<div class="container_lg">
-				<div class="location">
-					<ul class="process-bar">
-						<li class="active"><span>step01</span></li>
-						<li><span>step02</span></li>
-						<li><span>완료</span></li>
-					</ul>			
-				</div> <!--location-->
-				
-				<div class="step01_box">
-					<div class="step01_info">
 						<img src="/images/step01_info.png" alt="" class="img-fluid">		
 						<p>전동킥보드에 부착된<br><span>대여용 QR코드</span>를 스캔해주세요.</p>
 						
@@ -217,7 +164,9 @@
 					<form name="applyForm" id="appyForm" action="/apply/step2.do" onSubmit="return false">
 					<input type="hidden" name="minwon_cmpy_nm" id="minwon_cmpy_nm" value=""> 			
 					<input type="hidden" name="minwon_applied_pos_x" name="minwon_applied_pos_x" vallue="">
-					<input type="hidden" name="minwon_applied_pos_y" name="minwon_applied_pos_y" value="">		
+					<input type="hidden" name="minwon_applied_pos_y" name="minwon_applied_pos_y" value="">	
+					<input id="uuid" type="hidden" name="uuid">
+			        <input id="qrcode" type="hidden" name="qrcode">	
 						<colgroup>
 							<col style="width:200px;" />
 							<col style="" />
@@ -226,7 +175,7 @@
 						<tr>
 							<th>킥보드사</th>
 							<td>
-								<select class="form-select" aria-label="Default select example">
+								<select class="form-select" aria-label="Default select example" id="companyList" name="comCd">
 									<option selected>업체를 선택해 주세요!</option>
 									<option value="1">업체 1</option>
 									<option value="2">업체 2</option>
@@ -258,10 +207,12 @@
 
 		</div><!--wrapper-->
 
+ 
 
 
-		<script src="./assets/js/bootstrap.bundle.min.js"></script>
-		<script src="./assets/js/common.js"></script>
+
+		<script src="./js/bootstrap.bundle.min.js"></script>
+		<script src="./js/common.js"></script>
 		
 	</body>
 </html>

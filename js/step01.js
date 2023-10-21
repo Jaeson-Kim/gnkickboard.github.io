@@ -56,6 +56,15 @@ $( document ).ready(function() {
   console.log(uuid);
   document.getElementById('uuid').value = uuid;
 
+  // 현재 위치 좌표
+  navigator.geolocation.getCurrentPosition(function (data) {
+    var latitude = data.coords.latitude;
+    var longitude = data.coords.longitude;
+    console.log(latitude, longitude);
+    document.getElementById('lon').value = longitude;
+    document.getElementById('lat').value = latitude;
+  });
+  
 	// QR코드 스캐너 활성화
 	qrScannerOn();
 	
@@ -130,21 +139,3 @@ function readQrCodeData(data) {
   $('#kickboardId').val(kickId);
 }
 
-function goStep02() {
-  var data = {};
-
-  data.uuid = $('#uuid').val();
-  data.comCd = $('#companyList').val();
-  data.kickboardId = $('#kickboardId').val();
-
-  var $companyList = $("#companyList");
-  $companyList.find('option').each(function() {
-    var option = $(this);
-    if(option.attr('value') === data.comCd) {
-      data.comNm = option.text();
-    }
-  });
-
-  localStorage.setItem("step1", JSON.stringify(data));
-  location.href = 'step02.html';
-}

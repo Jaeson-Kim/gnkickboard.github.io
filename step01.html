@@ -7,17 +7,161 @@
 		<meta name="description" content="">
 		<meta name="author" content=" ">
 		<meta name="generator" content=" ">
-
 		<title>강릉시 퀵보드 민원신고시스템</title>
 
 		<!-- Bootstrap core CSS -->
-		<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="./assets/css/layout.css" rel="stylesheet">
+		<link href="/apply/assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/apply/assets/css/layout.css" rel="stylesheet">
 
 		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+ 		<script src="/apply/plugin/jsQR.js"></script> 
+		<script src="/apply/js/step01.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/jsqr@1.0.0/dist/jsQR.min.js"></script>
+		<script type="text/javaScript" language="javascript">
+			function goMinwon() {
+				document.applyForm.action = "<c:url value='/context/apply/step2.do'/>"; 
+				document.applyForm.submit();
+			} 
+		</script>
+		<script>
+	    function makeAjaxRequest(url_param, method_param , callback) {
+	        $.ajax({
+	            url: url_param,
+	            method: method_param,
+	            dataType: 'json'
+	        })
+	        .done(function (data) {
+	            callback(data); // 성공 시 콜백 함수 호출
+	        })
+	        .fail(function (xhr, status, error) {
+	            console.error(error);
+	            // 에러 처리 로직
+	        });
+	    }
+	    
+	    function updateViewCompany(data){  
+	    	var $companyList = $("#companyList");
+	    	$companyList.empty();
+	    	$companyList.append($("<option></option>")
+	    	.attr("value", "")
+            .text("업체를 선택하세요."));
+	    	 
+			if(data && data.length > 0){
+				// JSON 데이터를 기반으로 새로운 옵션을 추가
+                $.each(data, function (index, item) { 
+                	$companyList.append($("<option></option>")
+                        .attr("value", item.ctgry_ID)
+                        .attr("data-value", item.ctgry_URL)
+                        .text(item.ctgry_NM));
+                });
+			} else {
+			    // JSON 데이터가 없거나 빈 배열인 경우 "자료가 없습니다" 옵션을 추가
+			    $companyList.append($("<option></option>")
+			        .attr("value", "")
+			        .text("등록된 업체가 없습니다."));
+			}
+			
+	    }
+	    function fetchData(url, method, callback) {
+	        makeAjaxRequest(url, method, callback);
+	    }
+	    
+	    $(document).ready(function() { 
+	    	try{
+	    		fetchData( "http://218.235.237.30/api/v1/getCompanyCategory/company.json", 
+	    			    "GET" , 
+	    			    updateViewCompany
+		    	     ); 
+	    	}catch(e){
+	    		alert(e.toString());
+	    	}
+	    	/****************************
+	    	 * 파일로 바코드 읽기
+	    	 ****************************/
+	    	document.getElementById("qrCodeImageInput").addEventListener("change", function (event) {
+			    const file = event.target.files[0];
+			    const reader = new FileReader(); 
+			    reader.onload = function (e) {
+			        const image = new Image();
+			        image.src = e.target.result;
+			
+			        image.onload = function () {
+			            const canvas = document.createElement("canvas");
+			            canvas.width = image.width;
+			            canvas.height = image.height;
+			            const context = canvas.getContext("2d");
+			            context.drawImage(image, 0, 0);
+			
+			            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+			            const code = jsQR(imageData.data, canvas.width, canvas.height);
+			         // 이미지 데이터를 Canvas에 그립니다   
+			            
+			            const codeString = code.data;
+						if(codeString){
+				            // 문자열을 사용하여 분리 및 처리
+				            const originalDomain = codeString.split("?")[0];
+				           
+				            if(originalDomain){ 
+				            	const cleanedDomain = originalDomain.replace("https://", "").replace("http://", "");
+				            	var $companyList = $("#companyList");
+				            	$companyList.find('option').each(function() {
+				            	    var option = $(this);
+				            	    if (option.attr('data-value') === cleanedDomain) {
+				            	        option.prop('selected', true); // 해당 옵션을 선택 상태로 설정
+				            	        var optionText = option.text();
+				            	        
+				            	        $("#minwon_cmpy_nm").val(optionText) ; 
+				            	        alert(optionText);
+				            	    }
+				            	    
+				            	    
+				            	    
+				            	});
+				            }
+				            const kickboard = codeString.split("?")[1];
+				            try{
+					            if (kickboard) { 
+					                const kickboardid = kickboard.split("=")[1];
+					                if(kickboardid){
+						                $("#kickId").val(kickboardid);
+						                
+						                var targetValue = "www.daum.net"; // 비교하려는 값
 
-		<script src="./js/plugin/jsQR.js"></script>
-		<script src="./js/step01.js"></script>
+						                $companyList.find('option').each(function() {
+						                    var option = $(this);
+						                    if (option.attr('data-value') === targetValue) {
+						                        option.prop('selected', true); // 해당 옵션을 선택 상태로 설정 
+						                        
+						                    }
+						                });
+					                }else{
+					                	alert("킥보드 ID를 인식할 수 없습니다. 재시도 또는 킥보드 ID를 입력해 주세요.");
+					                }
+					            }
+				            }catch(e){
+				            	alert("킥보드 ID를 인식할 수 없습니다. 재시도 또는 킥보드 ID를 입력해 주세요.");
+				            }
+						}else{
+							alert("킥보드 ID를 인식할 수 없습니다. 재시도 또는 킥보드 ID를 입력해 주세요.");
+						}
+			        };
+			    };
+			
+			    reader.readAsDataURL(file);
+			});
+	    });
+	    
+	    function extractSelectedText() {
+	        // select 요소 가져오기
+	        var selectElement = document.getElementById("companyList");
+	        
+	        // 선택된 옵션의 텍스트 내용 가져오기
+	        var selectedOption = selectElement.options[selectElement.selectedIndex];
+	        var selectedText = selectedOption.text;
+	        alert(selectedText);
+	        $("#minwon_cmpy_nm").val(selectedText);	 
+	    }
+		</script> 
 	</head>
 	<body>
 		<div class="main_wrapper">
@@ -27,21 +171,21 @@
 						<span></span>						
 					</button>
 					<div class="all_menu_top">
-						<a href="index.html"><img src="./images/logo.png" class="img-fluid" /></a>					
+						<a href="index.html"><img src="/images/logo.png" class="img-fluid" /></a>					
 					</div><!--all_menu_top-->
 					
 					<div CLASS="menu_box">
 						<ul>
-							<li class="on"><a href="step01.html"><img src="" />신고접수</a></li>
-							<li><a href="receitp.html"><img src="" />결과조회</a></li>
-							<li><a href="notice.html"><img src="" />공지사항</a></li>
+							<li class="on"><a href="step1.do"><img src="" />신고접수</a></li>
+							<li><a href="receipt.do"><img src="" />결과조회</a></li>
+							<li><a href="notice.do"><img src="" />공지사항</a></li>
 						</ul>
 						
 					</div>
 				</div><!--all_menu-->
 				<div class="container-lg navbar">
 				  <a href="index.html" class="top_logo">
-					<img src="./images/logo.png" class="img-fluid" />
+					<img src="/images/logo.png" class="img-fluid" />
 				  </a>
 				  <button class="all_menu_btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#all_menu" aria-controls="all_menu" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="all_bar"></span>
@@ -62,7 +206,7 @@
 				
 				<div class="step01_box">
 					<div class="step01_info">
-						<img src="./images/step01_info.png" alt="" class="img-fluid">		
+						<img src="/images/step01_info.png" alt="" class="img-fluid">		
 						<p>전동킥보드에 부착된<br><span>대여용 QR코드</span>를 스캔해주세요.</p>
 						
 					</div><!--step01_info-->
@@ -70,60 +214,55 @@
 					<div class="scan_box" id="scanwrap"> 
 						<canvas id="scanbox" style="width: 80%; margin: 0px auto; height: 100%; display: block;" hidden></canvas>
 						<div class="can_box" id="can_box">
-							
-						</div>					
+							<input type="file" name="qrCodeImageInput" id="qrCodeImageInput" />
+						</div>		 
 					</div><!--scan_box-->
-          
-          <input type="hidden" name="uuid" id="uuid">
-          <input type="hidden" name="lon" id="lon">
-          <input type="hidden" name="lat" id="lat">
-          <table class="table text-table">
-            <colgroup>
-              <col style="width:200px;" />
-              <col style="" />
-              
-            </colgroup>
-            <tr>
-              <th>킥보드사</th>
-              <td>
-                <select class="form-select" aria-label="Default select example" id="companyList" name="comCd">
-                  <option selected>업체를 선택해 주세요!</option>
-                  <option value="1">업체 1</option>
-                  <option value="2">업체 2</option>
-                  <option value="3">업체 3</option>
-                  <option value="3">업체 4</option>
-                  <option value="3">업체 5</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th>킥보드ID</th>
-              <td><input type="text" class="form-control" id="kickboardId" name="kickboardId" placeholder="킥보드 아이디를 입력해 주세요!"></td>
-            </tr>
-          </table>
-          <div class="btn_box">
-            <a href="javascript:goStep02();">다음단계</a>					
-          </div>
+					<table class="table text-table">
+					<form:form name="applyForm" id="appyForm" action="/apply/step2.do">
+					<input type="hidden" name="minwon_cmpy_nm" id="minwon_cmpy_nm" value=""> 			
+					<input type="hidden" name="minwon_applied_pos_x" name="minwon_applied_pos_x" vallue="">
+					<input type="hidden" name="minwon_applied_pos_y" name="minwon_applied_pos_y" value="">										
+						<colgroup>
+							<col style="width:200px;" />
+							<col style="" />
+							
+						</colgroup>
+						<tr>
+							<th>킥보드사</th>
+							<td>
+								<select class="form-select" id="companyList" name="minwon_cmpy_id" aria-label="Default select example" onchange="extractSelectedText()"> 
+									<option selected>업체를 선택해 주세요!</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>킥보드ID</th>
+							<td> <input type="text" class="form-control" id="kickId" name="minwon_kick_id" placeholder="킥보드 아이디를 입력해 주세요!"></td>
+						</tr>
+					</form:form>
+					</table>
+					<div class="btn_box">
+						<a href="javascript:goMinwon()">다음단계</a>					
+					</div>
 				</div><!--step01_box-->
 				
 			</div><!--container_lg-->
 			
 			<footer class="footer">
-				<div class="info_box">
-					<img src="images/info_time.png">					
+				<div class="info_box"> 
+					<img src="<c:out value="/context/apply/images/info_time.png"/>">					
 				</div>
-			</footer>
-		
+			</footer> 
 
 		</div><!--wrapper-->
 
-		<form action="" onSubmit="return false">
+		<form action="">
 			<input id="uuid" type="hidden" name="uuid">
 			<input id="qrcode" type="hidden" name="qrcode">
 		</form>
 
-		<script src="./js/bootstrap.bundle.min.js"></script>
-		<script src="./js/common.js"></script>
+		<script src="/apply/assets/js/bootstrap.bundle.min.js"></script>
+		<script src="/apply/assets/js/common.js"></script>
 		
 	</body>
 </html>

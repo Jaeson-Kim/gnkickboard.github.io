@@ -13,7 +13,7 @@ function success(pos) {
   $("#minwon_applied_pos_x").val(crd.longitude);
   $("#minwon_applied_pos_y").val(crd.latitude);
 
-  fetch("http://218.235.237.30/api/v1/getGeocoder/reverse.do", {
+  fetch("http://218.235.237.30/api/v1/getGeocoder/reverse.json", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

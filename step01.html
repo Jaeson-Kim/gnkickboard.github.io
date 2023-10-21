@@ -13,8 +13,6 @@
 		<link href="./assets/css/layout.css" rel="stylesheet"> 
 		<script src="/js/plugin/jsQR.js"></script>  
 		<script src="/js/jquery-1.11.2.js"></script>
-		<script src="/js/jquery.mobile-1.4.5.js"></script>
-		<script src="/js/EgovMobile-1.4.5.js"></script>
 		<script>
 			 function makeAjaxRequest(url_param, method_param , callback) {
 				  $.ajax({
@@ -52,7 +50,14 @@
 					.attr("value", "")
 					.text("등록된 업체가 없습니다."));
 				}
-					
+				
+				// UUID 생성
+				let uuid = self.crypto.randomUUID();
+				console.log(uuid);
+				document.getElementById('uuid').value = uuid;
+				
+				// QR코드 스캐너 활성화
+				qrScannerOn();	
 			 }
 			
 			function fetchData(url, method, callback) {
@@ -64,19 +69,7 @@
                          **************************/
 			$( document ).ready(function() {  
 				try {
-				    fetchData("http://218.235.237.30/api/v1/getCompanyCategory/company.json", "GET", updateViewCompany)
-				        .then(() => {
-				            // UUID 생성
-				            let uuid = self.crypto.randomUUID();
-				            console.log(uuid);
-				            document.getElementById('uuid').value = uuid;
-				
-				            // QR코드 스캐너 활성화
-				            qrScannerOn();
-				        })
-				        .catch((error) => {
-				            console.error(error);
-				        });
+				    fetchData("http://218.235.237.30/api/v1/getCompanyCategory/company.json", "GET", updateViewCompany);
 				} catch (e) {
 				    alert(e.toString());
 				} 

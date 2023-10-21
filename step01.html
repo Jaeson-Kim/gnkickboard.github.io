@@ -13,7 +13,22 @@
 		<link href="./assets/css/layout.css" rel="stylesheet">
 		<script src="http://code.jquery.com/jquery-3.7.1.min.js"  crossorigin="anonymous"></script>
 		<script>
-			 function updateViewCompany(data){  
+			 function makeAjaxRequest(url_param, method_param , callback) {
+			  $.ajax({
+			      url: url_param,
+			      method: method_param,
+			      dataType: 'json'
+			  })
+			  .done(function (data) {
+			      callback(data); // 성공 시 콜백 함수 호출
+			  })
+			  .fail(function (xhr, status, error) {
+			      console.error(error);
+			      // 에러 처리 로직
+			  });
+			}
+			
+			function updateViewCompany(data){  
 				var $companyList = $("#companyList");
 				$companyList.empty();
 				$companyList.append($("<option></option>")
@@ -37,33 +52,150 @@
 					
 			 }
 			
-			function makeAjaxRequest(url_param, method_param , callback) {
-			  $.ajax({
-			      url: url_param,
-			      method: method_param,
-			      dataType: 'json'
-			  })
-			  .done(function (data) {
-			      callback(data); // 성공 시 콜백 함수 호출
-			  })
-			  .fail(function (xhr, status, error) {
-			      console.error(error);
-			      // 에러 처리 로직
-			  });
+			function fetchData(url, method, callback) {
+			  makeAjaxRequest(url, method, callback);
 			}
 			
 			$( document ).ready(function() {
 			  try{
-			    makeAjaxRequest("http://218.235.237.30/api/v1/getCompanyCategory/company.json", 
-			          "GET" , 
-			          updateViewCompany
-			         ); 
+			    fetchData("http://218.235.237.30/api/v1/getCompanyCategory/company.json", 
+				  "GET" , 
+				  updateViewCompany
+				 ); 
 			  }catch(e){
 			    alert(e.toString());
 			  }
+
+			   // UUID 생성
+			  let uuid = self.crypto.randomUUID();
+			  console.log(uuid);
+			  document.getElementById('uuid').value = uuid;
+			
+				// QR코드 스캐너 활성화
+				qrScannerOn();
 			});
 			
 		</script>
+		<script>
+			
+function qrScannerOn() {
+  var video = document.createElement("video");
+  var canvasElement = document.getElementById("scanbox");
+  var canvas = canvasElement.getContext("2d");
+  var canBox = document.getElementById("can_box");
+
+  function drawLine(begin, end, color) {
+    canvas.beginPath();
+    canvas.moveTo(begin.x, begin.y);
+    canvas.lineTo(end.x, end.y);
+    canvas.lineWidth = 4;
+    canvas.strokeStyle = color;
+    canvas.stroke();
+  }
+
+  // Use facingMode: environment to attemt to get the front camera on phones
+  navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
+    video.srcObject = stream;
+    video.setAttribute("playsinline", true); // required to tell iOS safari we don't want fullscreen
+    video.play();
+    requestAnimationFrame(tick);
+  });
+
+  function tick() {
+    // scanwrap.style.background = 'none';
+    canBox.hidden = true;
+    if (video.readyState === video.HAVE_ENOUGH_DATA) {
+      canBox.hidden = true;
+      canvasElement.hidden = false;
+
+      canvasElement.height = video.videoHeight * 0.9;
+      canvasElement.width = video.videoWidth * 0.9;
+      canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+
+      var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+      var code = jsQR(imageData.data, imageData.width, imageData.height, {
+        inversionAttempts: "dontInvert",
+      });
+      if (code) {
+        drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+        drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+        drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+        drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
+
+        readQrCodeData(code.data);
+      // 읽으면 종료
+        return;
+      } else {
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+}
+
+	       // QR코드를 읽어 해당하는 회사 선택 및 ID입력
+		function readQrCodeData(data) {
+		  checkQRData(data);
+		} 
+
+	function checkQRData(data){
+		const codeString = code.data;
+		if(codeString){
+		    // 문자열을 사용하여 분리 및 처리
+		    const originalDomain = codeString.split("?")[0];
+		   
+		    if(originalDomain){ 
+			const cleanedDomain = originalDomain.replace("https://", "").replace("http://", "");
+			var $companyList = $("#companyList");
+			var isChecked = false;
+			var optionCount = $companyList.find("option").length;
+			
+			$companyList.find('option').each(function() {
+			    var option = $(this);
+			    if (option.attr('data-value') === cleanedDomain) {
+				option.prop('selected', true); // 해당 옵션을 선택 상태로 설정
+				var optionText = option.text();
+				ifChecked = true;
+				$("#minwon_cmpy_nm").val(optionText) ;  
+			    }
+			});
+			
+			if(!isChecked && optionCount > 0 ){
+				alert("등록되지 않은 킥보드업체입니다.킥보드사와 QR코드의 번호를 입력하시기 바랍니다.");
+				return;
+			}
+		    }
+		    /**************************************
+		     * 
+		     **************************************/
+		    const kickboard = codeString.split("?")[1];
+		    try{
+			    if (kickboard) { 
+				const kickboardid = kickboard.split("=")[1];
+				if(kickboardid){
+					$("#kickId").val(kickboardid);
+					
+					var targetValue = originalDomain.replace("https://", "").replace("http://", "");
+	
+					$companyList.find('option').each(function() {
+					    var option = $(this);
+					    if (option.attr('data-value') === targetValue) {
+						option.prop('selected', true); // 해당 옵션을 선택 상태로 설정  
+					    }
+					});
+				}else{
+					alert("킥보드 ID를 인식할 수 없습니다. 킥보드사와 킥보드 ID를 입력해 주세요.");
+				}
+			    }
+		    }catch(e){
+			alert("킥보드 ID를 인식할 수 없습니다.킥보드사와 킥보드 ID를 입력해 주세요.");
+		    }
+		}else{
+			alert("킥보드 ID를 인식할 수 없습니다. 재시도 또는 킥보드 ID를 입력해 주세요.");
+		}
+
+		
+	}
+		</sccript>
 	</head>
 	<body>
 		<div class="main_wrapper">

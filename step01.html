@@ -15,18 +15,18 @@
 		<script src="/js/plugin/jsQR.js"></script>  
 		<script>
 			 function makeAjaxRequest(url_param, method_param , callback) {
-			  $.ajax({
-			      url: url_param,
-			      method: method_param,
-			      dataType: 'json'
-			  })
-			  .done(function (data) {
-			      callback(data); // 성공 시 콜백 함수 호출
-			  })
-			  .fail(function (xhr, status, error) {
-			      console.error(error);
-			      // 에러 처리 로직
-			  });
+				  $.ajax({
+				      url: url_param,
+				      method: method_param,
+				      dataType: 'json'
+				  })
+				  .done(function (data) {
+				      callback(data); // 성공 시 콜백 함수 호출
+				  })
+				  .fail(function (xhr, status, error) {
+				      console.error(error);
+				      // 에러 처리 로직
+				  });
 			}
 			
 			function updateViewCompany(data){  
@@ -54,45 +54,54 @@
 			 }
 			
 			function fetchData(url, method, callback) {
-			  makeAjaxRequest(url, method, callback);
+			 	makeAjaxRequest(url, method, callback);
 			}
-			
-			$( document ).ready(function() {
-			  try{
-			    fetchData("http://218.235.237.30/api/v1/getCompanyCategory/company.json", 
-				  "GET" , 
-				  updateViewCompany
-				 ); 
-			  }catch(e){
-			    alert(e.toString());
-			  }
 
-			   // UUID 생성
-			  let uuid = self.crypto.randomUUID();
-			  console.log(uuid);
-			  document.getElementById('uuid').value = uuid;
-			
-				// QR코드 스캐너 활성화
-				qrScannerOn();
+			/**************************
+   			 * oninit();
+                         **************************/
+			$( document ).ready(function() {  
+				try {
+				    fetchData("http://218.235.237.30/api/v1/getCompanyCategory/company.json", "GET", updateViewCompany)
+				        .then(() => {
+				            // UUID 생성
+				            let uuid = self.crypto.randomUUID();
+				            console.log(uuid);
+				            document.getElementById('uuid').value = uuid;
+				
+				            // QR코드 스캐너 활성화
+				            qrScannerOn();
+				        })
+				        .catch((error) => {
+				            console.error(error);
+				        });
+				} catch (e) {
+				    alert(e.toString());
+				} 
 			});
 			
 		</script>
 		<script>
+ 
+var canvas = null;
+var canBox = null;
+var video = null;
+var canvasElement = null;
+			
+function drawLine( begin, end, color) {
+	canvas.beginPath();
+	canvas.moveTo(begin.x, begin.y);
+	canvas.lineTo(end.x, end.y);
+	canvas.lineWidth = 4;
+	canvas.strokeStyle = color;
+	canvas.stroke();
+}			
 			
 function qrScannerOn() {
-  var video = document.createElement("video");
-  var canvasElement = document.getElementById("scanbox");
-  var canvas = canvasElement.getContext("2d");
-  var canBox = document.getElementById("can_box");
-
-  function drawLine(begin, end, color) {
-    canvas.beginPath();
-    canvas.moveTo(begin.x, begin.y);
-    canvas.lineTo(end.x, end.y);
-    canvas.lineWidth = 4;
-    canvas.strokeStyle = color;
-    canvas.stroke();
-  }
+  video = document.createElement("video");
+  canvasElement = document.getElementById("scanbox");
+  canvas = canvasElement.getContext("2d");
+  canBox = document.getElementById("can_box");
 
   // Use facingMode: environment to attemt to get the front camera on phones
   navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
@@ -101,9 +110,8 @@ function qrScannerOn() {
     video.play();
     requestAnimationFrame(tick);
   });
-
+}
   function tick() {
-    // scanwrap.style.background = 'none';
     canBox.hidden = true;
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
       canBox.hidden = true;
@@ -124,7 +132,6 @@ function qrScannerOn() {
         drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
 
         readQrCodeData(code.data);
-      // 읽으면 종료
         return;
       } else {
       }
@@ -133,10 +140,10 @@ function qrScannerOn() {
   }
 }
 
-	       // QR코드를 읽어 해당하는 회사 선택 및 ID입력
-		function readQrCodeData(data) {
-		  checkQRData(data);
-		} 
+	// QR코드를 읽어 해당하는 회사 선택 및 ID입력
+	function readQrCodeData(data) {
+		checkQRData(data);
+	} 
 
 	function checkQRData(data){
 		const codeString = code.data;
@@ -193,8 +200,6 @@ function qrScannerOn() {
 		}else{
 			alert("킥보드 ID를 인식할 수 없습니다. 재시도 또는 킥보드 ID를 입력해 주세요.");
 		}
-
-		
 	}
 		</sccript>
 	</head>

@@ -18,7 +18,11 @@
 				  $.ajax({
 				      url: url_param,
 				      method: method_param,
-				      dataType: 'json'
+				      dataType: 'json',
+				      crossDomain: true, // CORS 요청을 사용하도록 설정
+				      xhrFields: {
+					withCredentials: false // 필요에 따라 설정, 쿠키를 포함하지 않도록 설정할 수 있습니다
+				      }
 				  })
 				  .done(function (data) {
 				      callback(data); // 성공 시 콜백 함수 호출

@@ -34,12 +34,13 @@ function success(pos) {
     })
     .then((data) => {
       let jsondata = JSON.parse(data);
+      alert(JSON.stringify(data));
       $("#minwon_applied_addr").val(jsondata[0].text);
       posx = crd.longitude;
       posy = crd.latitude;
     })
     .catch((error) => {
-      alert("위치정보 인식이 불가능합니다. 주소를 입력하시기 바랍니다");
+      alert(error+" : 위치정보 인식이 불가능합니다. 주소를 입력하시기 바랍니다");
     });
 }
 

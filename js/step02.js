@@ -14,7 +14,7 @@ function success(pos) {
   $("#minwon_applied_pos_y").val(crd.latitude);
 
   fetch("http://218.235.237.30/api/v1/getGeocoder/reverse.do", {
-    method: "POST",
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
       Origin: "http://218.235.237.30",

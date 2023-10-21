@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content=" ">
+		<meta name="generator" content=" ">
+		<title>강릉시 퀵보드 민원신고시스템-관리자</title>
+		<!-- Bootstrap core CSS -->
+		<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
+		<link href="./assets/css/layout.css" rel="stylesheet">
+	</head>
+	<body>
+		<div class="adm_wrapper">
+			<div class="side_nav">
+				<h1 class="adm_logo">					
+					<a href="index.html" class="">
+						<img src="../images/logo.png">
+						<span class="fs-4">관리자 페이지</span>
+					</a>
+				</h1>			
+				<ul class="nav nav-pills flex-column mb-auto">
+					<li class="nav-item">
+						<a href="min_list.html" class="nav-link active">신고접수</a>
+					</li>
+					<li>
+						<a href="cate_list.html" class="nav-link">신고유형</a>
+					</li>
+					<li>
+						<a href="banner_list.html" class="nav-link">배너</a>
+					</li>
+					<li>
+						<a href="company_list.html" class="nav-link">업체관리</a>
+					</li>
+					<li>
+						<a href="notice_list.html" class="nav-link">공지사항</a>
+					</li>
+					<li>
+						<a href="log.html" class="nav-link">통계</a>
+					</li>
+				</ul>
+			</div><!--side_nav-->
+			<div class="adm_con">
+				<h2 class="page_title">
+					신고접수 - 리스트
+				</h2>
+				<div class="list_box">
+					<div class="sch_box">
+						<div class="input-group sch01">
+							<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">진행상황</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">처리완료</a></li>
+								<li><a class="dropdown-item" href="#">접수확인</a></li>
+								<li><a class="dropdown-item" href="#">처리 중</a></li>
+							</ul>							
+						</div><!--sch01-->
+						
+						<div class="input-group sch02">
+							<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">업체명</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">업체 1</a></li>
+								<li><a class="dropdown-item" href="#">업체 2</a></li>
+								<li><a class="dropdown-item" href="#">업체 3</a></li>
+							</ul>							
+						</div><!--sch02-->
+						
+						<div class="input-group sch03">
+							<button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">전체</button>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">신고일</a></li>
+								<li><a class="dropdown-item" href="#">업체명</a></li>
+								<li><a class="dropdown-item" href="#">신고장소</a></li>
+								<li><a class="dropdown-item" href="#">신고자 연락처</a></li>
+							</ul>
+							<input type="text" class="form-control" aria-label="Text input with dropdown button">
+						</div><!--sch03-->
+					</div><!--sch_box-->
+					
+					<table class="table">
+						<colgroup>
+						<col width="50px" />
+						<col width="160px"/>
+						<col />
+						<col width="200px"/>
+						<col width="200px"/>
+					</colgroup>
+						<thead>
+							<tr>
+								<th>NO</th>
+								<th>신고일</th>
+								<th>신고장소</th>
+								<th>업체</th>
+								<th>진행상황</th>
+							</tr>							
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체1</td>
+								<td>처리완료</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>접수확인</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>접수확인</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>접수확인</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>처리중</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>처리중</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>처리중</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>처리중</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>처리중</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>2023-08-10 10:20</td>
+								<td><a href="min_view.html">강릉시에 위치해있는 주소가 나타납니다.</a></td>
+								<td>킥보드 업체3</td>
+								<td>처리중</td>
+							</tr>
+							
+						</tbody>
+						
+					</table>		
+					<nav aria-label="Page navigation ">
+						<ul class="pagination">
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Previous">
+									<span aria-hidden="true">&laquo;</span>
+								</a>
+							</li>
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+							<li class="page-item"><a class="page-link" href="#">4</a></li>
+							<li class="page-item"><a class="page-link" href="#">5</a></li>
+							<li class="page-item"><a class="page-link" href="#">6</a></li>
+							<li class="page-item"><a class="page-link" href="#">7</a></li>
+							<li class="page-item"><a class="page-link" href="#">8</a></li>
+							<li class="page-item"><a class="page-link" href="#">9</a></li>
+							<li class="page-item"><a class="page-link" href="#">10</a></li>
+							<li class="page-item">
+								<a class="page-link" href="#" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div><!--list_box-->
+				<div style="text-align:center">
+					<h3 style="font-size:20px; border-top:2px solid #ddd; padding-top:40px">진행상황 변경</h3>
+					<div class="btn_box" style="text-align:center">
+						<a href="min_list.html" class="btn btn_sav">접수확인</a>
+						<a href="min_list.html" class="btn btn_sav">처리중</a>					
+						<a href="min_list.html" class="btn btn_sav">처리불가</a>					
+					</div>					
+				</div>
+				
+				
+			</div><!--adm_con-->
+		</div><!--wrapper-->
+		
+		<script src="./assets/js/bootstrap.bundle.min.js"></script>
+		<script src="./assets/js/common.js"></script>
+		
+	</body>
+</html>

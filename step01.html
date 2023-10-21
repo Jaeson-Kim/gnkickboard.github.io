@@ -25,7 +25,7 @@
 					
 					<div CLASS="menu_box">
 						<ul>
-							<li><a href="step01.html"><img src="" />신고접수</a></li>
+							<li class="on"><a href="step01.html"><img src="" />신고접수</a></li>
 							<li><a href="receitp.html"><img src="" />결과조회</a></li>
 							<li><a href="notice.html"><img src="" />공지사항</a></li>
 						</ul>
@@ -33,7 +33,7 @@
 					</div>
 				</div><!--all_menu-->
 				<div class="container-lg navbar">
-				  <a href="#" class="top_logo">
+				  <a href="index.html" class="top_logo">
 					<img src="./images/logo.png" class="img-fluid" />
 				  </a>
 				  <button class="all_menu_btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#all_menu" aria-controls="all_menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,45 +44,64 @@
 				</div>
 			</header>
 
-			<main>
-				<div class="container-lg">
-					<div id="myCarousel" class="carousel slide text-center" data-bs-ride="carousel">
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img src="./images/main01.png" class="img-fluid" />
-							</div><!--carousel-item-->
-							<div class="carousel-item ">
-								<img src="./images/main02.png" class="img-fluid" />
-							</div><!--carousel-item-->
-							<div class="carousel-item ">
-								<img src="./images/main03.png" class="img-fluid" />
-							</div><!--carousel-item-->
-						</div><!--carousel-inner-->
-						<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
-					</div><!--carousel-->					
-					<ul class="link_box">
-						<li><a href="step01.html" alt="신고하기 버튼" class="btn01">신고하기</a></li>
-						<li><a href="receitp.html" alt="결과조회 버튼" class="btn02">결과조회</a></li>
-					</ul>				
-				</div><!--container-lg-->
+			<div class="container_lg">
+				<div class="location">
+					<ul class="process-bar">
+						<li class="active"><span>step01</span></li>
+						<li><span>step02</span></li>
+						<li><span>완료</span></li>
+					</ul>			
+				</div> <!--location-->
 				
+				<div class="step01_box">
+					<div class="step01_info">
+						<img src="/images/step01_info.png" alt="" class="img-fluid">		
+						<p>전동킥보드에 부착된<br><span>대여용 QR코드</span>를 스캔해주세요.</p>
+						
+					</div><!--step01_info-->
 				
-			</main>
+					<div class="scan_box"> 
+						<div class="can_box">
+							
+							
+						</div>					
+						
+					</div><!--scan_box-->
+					<table class="table text-table">
+						<colgroup>
+							<col style="width:200px;" />
+							<col style="" />
+							
+						</colgroup>
+						<tr>
+							<th>킥보드사</th>
+							<td>
+								<select class="form-select" aria-label="Default select example">
+									<option selected>업체를 선택해 주세요!</option>
+									<option value="1">업체 1</option>
+									<option value="2">업체 2</option>
+									<option value="3">업체 3</option>
+									<option value="3">업체 4</option>
+									<option value="3">업체 5</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>킥보드ID</th>
+							<td> <input type="text" class="form-control" id="" placeholder="킥보드 아이디를 입력해 주세요!"></td>
+						</tr>
+					</table>
+					<div class="btn_box">
+						<a href="step02.html">다음단계</a>					
+					</div>
+				</div><!--step01_box-->
+				
+			</div><!--container_lg-->
+			
 			<footer class="footer">
 				<div class="info_box">
 					<img src="./images/info_time.png">					
 				</div>
-				<div class="f_logo">
-					<img src="./images/f_logo.png" class="f_logo">	
-				</div>
-				<a class="adm_btn" href="/_adm/login.html">관리자</a>
 			</footer>
 		
 

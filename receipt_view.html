@@ -26,14 +26,14 @@
 					<div CLASS="menu_box">
 						<ul>
 							<li><a href="step01.html"><img src="" />신고접수</a></li>
-							<li><a href="receitp.html"><img src="" />결과조회</a></li>
+							<li class="on"><a href="receitp.html"><img src="" />결과조회</a></li>
 							<li><a href="notice.html"><img src="" />공지사항</a></li>
 						</ul>
 						
 					</div>
 				</div><!--all_menu-->
 				<div class="container-lg navbar">
-				  <a href="#" class="top_logo">
+				  <a href="index.html" class="top_logo">
 					<img src="./images/logo.png" class="img-fluid" />
 				  </a>
 				  <button class="all_menu_btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#all_menu" aria-controls="all_menu" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,37 +44,49 @@
 				</div>
 			</header>
 
-			<main>
-				<div class="container-lg">
-					<div id="myCarousel" class="carousel slide text-center" data-bs-ride="carousel">
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img src="./images/main01.png" class="img-fluid" />
-							</div><!--carousel-item-->
-							<div class="carousel-item ">
-								<img src="./images/main02.png" class="img-fluid" />
-							</div><!--carousel-item-->
-							<div class="carousel-item ">
-								<img src="./images/main03.png" class="img-fluid" />
-							</div><!--carousel-item-->
-						</div><!--carousel-inner-->
-						<button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
-					</div><!--carousel-->					
-					<ul class="link_box">
-						<li><a href="step01.html" alt="신고하기 버튼" class="btn01">신고하기</a></li>
-						<li><a href="receitp.html" alt="결과조회 버튼" class="btn02">결과조회</a></li>
-					</ul>				
-				</div><!--container-lg-->
+			<div class="container_lg">
+				<div class="location">
+					<h2>접수 상세내역</h2>					
+				</div> <!--location-->
+				<div class="receipt_list">					
+					<table class="table t-style01">
+					 	<colgroup>
+					 		<col width="20%" />
+					 		<col width="" />
+						</colgroup>
+						<tr>
+							<th>신고일시</th>
+							<td>2023-06-07 11:03</td>
+						</tr>
+						<tr>
+							<th>신고위치</th>
+							<td>강원 강릉시 초당순부부길 40 초당옥</td>
+						</tr>
+						<tr>
+							<th>위반유형</th>
+							<td>자전거도로</td>
+						</tr>
+						<tr>
+							<th>신고내용</th>
+							<td>도로앞에 차들이 많이 지나다니는데 도로변에</td>
+						</tr>
+						<tr>
+							<th>진행상태</th>
+							<td>
+								<span class="re01">조치대기</span>
+							</td>
+						</tr>	
+						<tr>
+							<th>첨부사진</th>
+							<td>
+								
+							</td>
+						</tr>					
+					</table>																								
+				</div><!--receipt_list-->
 				
-				
-			</main>
+			</div><!--container_lg-->
+			
 			<footer class="footer">
 				<div class="info_box">
 					<img src="./images/info_time.png">					
@@ -82,13 +94,9 @@
 				<div class="f_logo">
 					<img src="./images/f_logo.png" class="f_logo">	
 				</div>
-				<a class="adm_btn" href="/_adm/login.html">관리자</a>
 			</footer>
 		
-
 		</div><!--wrapper-->
-
-
 
 		<script src="./assets/js/bootstrap.bundle.min.js"></script>
 		<script src="./assets/js/common.js"></script>

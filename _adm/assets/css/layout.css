@@ -1,0 +1,249 @@
+/*reset*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font-family: 'Pretendard';
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a{text-decoration:none;}
+
+
+/*font*/
+
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 900;
+	font-display: swap;
+	src: local('Pretendard Black'),
+	url('/assets/font/woff2/Pretendard-Black.woff2') format('woff2'),
+	url('/assets/font/woff/Pretendard-Black.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 800;
+	font-display: swap;
+	src: local('Pretendard ExtraBold'),
+	url('/assets/font/woff2/Pretendard-ExtraBold.woff2') format('woff2'),
+	url('/assets/font/woff/Pretendard-ExtraBold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 700;
+	font-display: swap;
+	src: local('Pretendard Bold'),
+	url('./') format('woff2'),
+	url('/assets/font/woff/Pretendard-Bold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 600;
+	font-display: swap;
+	src: local('Pretendard SemiBold'),
+	url('/assets/font/woff2/Pretendard-SemiBold.woff2') format('woff2'),
+	url('/assets/font/woff/Pretendard-SemiBold.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 500;
+	font-display: swap;
+	src: local('Pretendard Medium'),
+	url('/assets/font/woff2/Pretendard-Medium.woff2') format('woff2'),
+	url('/assets/font/woff/Pretendard-Medium.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 400;
+	font-display: swap;
+	src: local('Pretendard Regular'),
+	url('/assets/font/woff2/Pretendard-Regular.woff2') format('woff2'),
+	url('/assets/font/woff/Pretendard-Regular.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 300;
+	font-display: swap;
+	src: local('Pretendard Light'),
+	url('/assets/font/woff2/Pretendard-Light.woff2') format('woff2'),
+	url('/assets/font/woff/Pretendard-Light.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 200;
+	font-display: swap;
+	src: local('Pretendard ExtraLight'),
+	url('/assets/font/woff2/Pretendard-ExtraLight.woff2') format('woff2'),
+	url('/assets/font/woff/Pretendard-ExtraLight.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Pretendard';
+	font-weight: 100;
+	font-display: swap;
+	src: local('Pretendard Thin'),
+	url('/assets/font/woff2/Pretendard-Thin.woff2') format('woff2'),
+	url('/assets/font/woff/Pretendard-Thin.woff') format('woff');
+}
+
+.adm_wrapper{
+		min-height: 100vh;
+		display: flex; flex-wrap: nowrap;
+		flex-direction: row; align-items: stretch;
+    overflow-x: auto; overflow-y: hidden;
+}
+
+.adm_wrapper #sidebarMenu{
+		min-height:calc(100vh - 60px);
+		padding:0px;
+		background:#333;
+		
+}
+
+/*login_form*/
+.login_form {display: flex; flex-direction: column; justify-content: center;
+							height:100vh; align-items: center; padding-top: 40px; padding-bottom: 40px; background: #555;}
+.login_form form{background:#efefef; width: 100%; max-width: 500px; 
+									box-sizing: border-box; padding: 30px; border-radius: 5px;
+									border:1px solid #aaa}
+
+.login_form form h1{text-align: center; margin-bottom: 20px; font-size:22px;}
+.login_form form .form-floating{margin-bottom:5px}
+.sign_btn{width:100%; display:block;background:blue; margin-top: 20px; padding:20px 10px;
+					color:#fff; border-radius: 3px; text-align:Center; font-size:18px;}
+.sign_btn:hover{background:#333; color:#fff}
+
+.logout_btn{padding:10px; border:1px solid #fff; margin-right: 5px;
+					color:#fff; border-radius: 3px; text-align:Center; font-size:18px;}
+.logout_btn:hover{background:#aaa; color:#fff}
+
+/**/
+.side_nav{background:#333; color:#fff; width:300px;}
+.side_nav .adm_logo{padding:40px 0px}
+.side_nav .adm_logo a{}
+.side_nav .adm_logo a img{max-width:80%; width:150px; display:block;
+													margin: 10px auto 20px auto;}
+.side_nav .adm_logo a span{display: block; color:#fff; text-align: center}
+.side_nav .nav{}
+.side_nav .nav li{position: relative;}
+.side_nav .nav li a{padding:20px; border-bottom:1px solid #fff; border-radius: 0px; color:#fff;}
+.side_nav .nav li a.active:after{
+	  content: ''; display: block; width: 0px; height: 0px; background: transparent;
+    position: absolute; right: 0px; top: 50%;
+    border-bottom: 15px solid transparent; border-top: 15px solid transparent;
+    border-right: 10px solid #fff;
+    border-left: 10px solid transparent;
+    transform: translateY(-52%);
+}
+/***/
+.adm_con{width:100%; padding:20px;}
+.page_title{font-size:24px; background:#efefef; padding:10px; border-radius: 3px}
+
+.content{}
+.content .sub_title{}
+
+
+.count_list{}
+.count_list ul{margin:20px 0px; padding:0px;
+								display: flex; flex-direction: row; justify-content: space-between; align-items: stretch;}
+.count_list ul li{display: inline-block; width:24%; border:1px solid #ddd; padding:0px;
+									margin:10px; text-align:center;}
+.count_list ul li h3{background:#ddd; padding:20px 0px; margin:0px 0px 10px 0px; color:#333; font-size:20px;}
+.count_list ul li p{font-size:18px; margin:20px 0px}
+
+.list_box{margin:20px 0px}
+.list_box table{}
+.list_box table thead{}
+.list_box table tbody{}
+.list_box table tr{}
+.list_box table tr th{background:#efefef; border:1px solid #ddd;  text-align: center; 
+											font-weight: 600; padding: 10px 3px;vertical-align: middle;}
+.list_box table tr td{border:1px solid #ddd;  padding: 10px 3px; text-align: center;vertical-align: middle;}
+
+.list_add{margin:40px 0px}
+
+.sch_box{widows: 100%;margin: 40px auto 10px auto;}
+.sch_box:after{content:''; display: block; clear: both}
+.sch_box .sch01{float: left; width: 150px; margin-right: 10px}
+.sch_box .sch01 button{width:100%}
+.sch_box .sch02{float: left; width: 150px}
+.sch_box .sch02 button{width:100%}
+.sch_box .sch03{float:right; width:50%}
+.sch_box .sch03 button{width:150px}
+.pagination{width:fit-content; margin:40px auto;}
+
+/*view*/
+.view_box{padding:20px;}
+.view_box tr{}
+.view_box tr th{background:#efefef; padding:15px 5px; text-align:center; border:1px solid #ddd;
+								vertical-align: middle;}
+.view_box tr td{padding:15px 5px; border:1px solid #ddd; vertical-align: middle;}
+
+
+
+.btn_box{margin:20px 0px; text-align:right;}
+.btn_box .btn{background:#eee; width:120px;}
+.btn_box .btn_list{background:#1a8f1a; color:#fff}
+.btn_box .btn_modi{background:#fba200; color:#fff}
+.btn_box .btn_del{background:#fb0000; color:#fff}
+.btn_box .btn_sav{background:#0047af; color:#fff}
+
+.log_box{}
+.log_box table{margin:20px 0px}
+.log_box table tr{}
+.log_box table tr th{background:#efefef; border:1px solid #ddd;  text-align: center; 
+											font-weight: 600; padding: 10px 3px;vertical-align: middle;}
+.log_box table tr td{border:1px solid #ddd;  padding: 10px 3px; text-align: center;vertical-align: middle;}
+
+
+
+
+
+
+
+
+

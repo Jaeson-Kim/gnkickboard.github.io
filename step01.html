@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 	<head>
@@ -7,71 +6,11 @@
 		<meta name="description" content="">
 		<meta name="author" content=" ">
 		<meta name="generator" content=" ">
-
 		<title>강릉시 퀵보드 민원신고시스템</title>
 
 		<!-- Bootstrap core CSS -->
 		<link href="./assets/css/bootstrap.min.css" rel="stylesheet">
 		<link href="./assets/css/layout.css" rel="stylesheet">
-
-		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-		<script src="./js/plugin/jsQR.js"></script>
-		<script src="./js/step01.js"></script>
-		<script>
-		    function makeAjaxRequest(url_param, method_param , callback) {
-		        $.ajax({
-		            url: url_param,
-		            method: method_param,
-		            dataType: 'json'
-		        })
-		        .done(function (data) {
-		            callback(data); // 성공 시 콜백 함수 호출
-		        })
-		        .fail(function (xhr, status, error) {
-		            console.error(error);
-		            // 에러 처리 로직
-		        });
-		    }
-		    
-		    function updateViewCompany(data){  
-		    	var $companyList = $("#companyList");
-		    	$companyList.empty();
-		    	$companyList.append($("<option></option>")
-		    	.attr("value", "")
-	            .text("업체를 선택하세요."));
-		    	 
-				if(data && data.length > 0){
-					// JSON 데이터를 기반으로 새로운 옵션을 추가
-	                $.each(data, function (index, item) { 
-	                	$companyList.append($("<option></option>")
-	                        .attr("value", item.ctgry_ID)
-	                        .attr("data-value", item.ctgry_URL)
-	                        .text(item.ctgry_NM));
-	                });
-				} else {
-				    // JSON 데이터가 없거나 빈 배열인 경우 "자료가 없습니다" 옵션을 추가
-				    $companyList.append($("<option></option>")
-				        .attr("value", "")
-				        .text("등록된 업체가 없습니다."));
-				}
-				
-		    }
-		    function fetchData(url, method, callback) {
-		        makeAjaxRequest(url, method, callback);
-		    }
-		    
-		    $(document).ready(function() { 
-		    	try{
-		    		fetchData( "http://218.235.237.30/api/v1/getCompanyCategory/company.json", 
-		    			    "GET" , 
-		    			    updateViewCompany
-			    	     ); 
-		    	}catch(e){
-		    		alert(e.toString());
-		    	}
-		    });
-		</script>
 	</head>
 	<body>
 		<div class="main_wrapper">
@@ -116,67 +55,62 @@
 				
 				<div class="step01_box">
 					<div class="step01_info">
-						<img src="./images/step01_info.png" alt="" class="img-fluid">		
+						<img src="/images/step01_info.png" alt="" class="img-fluid">		
 						<p>전동킥보드에 부착된<br><span>대여용 QR코드</span>를 스캔해주세요.</p>
 						
 					</div><!--step01_info-->
 				
-					<div class="scan_box" id="scanwrap"> 
-						<canvas id="scanbox" style="width: 80%; margin: 0px auto; height: 100%; display: block;" hidden></canvas>
-						<div class="can_box" id="can_box">
+					<div class="scan_box"> 
+						<div class="can_box">
+							
 							
 						</div>					
+						
 					</div><!--scan_box-->
-          
-          <input type="hidden" name="uuid" id="uuid">
-          <input type="hidden" name="lon" id="lon">
-          <input type="hidden" name="lat" id="lat">
-          <table class="table text-table">
-            <colgroup>
-              <col style="width:200px;" />
-              <col style="" />
-              
-            </colgroup>
-            <tr>
-              <th>킥보드사</th>
-              <td>
-                <select class="form-select" aria-label="Default select example" id="companyList" name="comCd">
-                  <option selected>업체를 선택해 주세요!</option>
-                  <option value="1">업체 1</option>
-                  <option value="2">업체 2</option>
-                  <option value="3">업체 3</option>
-                  <option value="3">업체 4</option>
-                  <option value="3">업체 5</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <th>킥보드ID</th>
-              <td><input type="text" class="form-control" id="kickboardId" name="kickboardId" placeholder="킥보드 아이디를 입력해 주세요!"></td>
-            </tr>
-          </table>
-          <div class="btn_box">
-            <a href="javascript:goStep02();">다음단계</a>					
-          </div>
+					<table class="table text-table">
+						<colgroup>
+							<col style="width:200px;" />
+							<col style="" />
+							
+						</colgroup>
+						<tr>
+							<th>킥보드사</th>
+							<td>
+								<select class="form-select" aria-label="Default select example">
+									<option selected>업체를 선택해 주세요!</option>
+									<option value="1">업체 1</option>
+									<option value="2">업체 2</option>
+									<option value="3">업체 3</option>
+									<option value="3">업체 4</option>
+									<option value="3">업체 5</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th>킥보드ID</th>
+							<td> <input type="text" class="form-control" id="" placeholder="킥보드 아이디를 입력해 주세요!"></td>
+						</tr>
+					</table>
+					<div class="btn_box">
+						<a href="step02.html">다음단계</a>					
+					</div>
 				</div><!--step01_box-->
 				
 			</div><!--container_lg-->
 			
 			<footer class="footer">
 				<div class="info_box">
-					<img src="images/info_time.png">					
+					<img src="./images/info_time.png">					
 				</div>
 			</footer>
 		
 
 		</div><!--wrapper-->
 
-		<form action="">
-			<input id="uuid" type="hidden" name="uuid">
-			<input id="qrcode" type="hidden" name="qrcode">
-		</form>
 
-		<script src="./js/bootstrap.bundle.min.js"></script>
-		<script src="./js/common.js"></script>
+
+		<script src="./assets/js/bootstrap.bundle.min.js"></script>
+		<script src="./assets/js/common.js"></script>
+		
 	</body>
 </html>
